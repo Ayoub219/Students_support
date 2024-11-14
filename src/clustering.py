@@ -29,3 +29,7 @@ class Clustering:
         kmeans = KMeans(n_clusters)  # Ajuste le nombre de clusters selon tes besoins
         self.data_encoded_new['cluster'] = kmeans.fit_predict(self.data_scaled)
         return self.data_encoded_new
+    
+    def analyse_kmeans(self, data_with_cluster):
+        data_kmeans_analisis = data_with_cluster.groupby("cluster").mean() 
+        return data_kmeans_analisis.sort_values(by = 'FinalGrade', ascending = False)

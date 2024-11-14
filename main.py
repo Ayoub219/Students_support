@@ -4,7 +4,8 @@ from src.analyse_exploratoire import AnalyseEploratoireDonnees
 from src.data_processing import PretraitementsDonnees
 from src.modalite_chiffre import ModaliteeChiffre
 from src.tests_statistiques import TestsStatistiques
-from src.clustering_kmeans import Clustering
+from src.clustering import Clustering
+from src.improvability_score import ImprovabilityScore
 
 def main():
     
@@ -33,8 +34,16 @@ def main():
     data_with_cluster = Kmeans_clustering.kmeans(6)
     print(data_with_cluster.head())
     
-    data_kmeans_analisis = data_with_cluster.groupby("cluster").mean() 
-    print(data_kmeans_analisis)
+    #k_means_resultats
+    resultat = Kmeans_clustering.analyse_kmeans(data_with_cluster)
+    print(resultat)
+    
+    #Improvability_score
+    improvability_score = ImprovabilityScore(resultat)
+    data_finale = improvability_score.assign_support_level(data_encoded_new)
+    print(data_finale.head(10))
+    
+
     
     
 if __name__ == "__main__":
