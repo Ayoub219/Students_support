@@ -10,13 +10,12 @@ class Clustering:
         
     def regle_coude(self):
         inertias = []
-        K_range = range(1, 11)  # Tester de 1 à 10 clusters
+        K_range = range(1, 11)  
 
         for k in K_range:
             kmeans = KMeans(n_clusters=k, random_state=0)
             kmeans.fit(self.data_scaled)
             inertias.append(kmeans.inertia_)
-        # Tracer le graphe de la règle du coude
         plt.figure(figsize=(8, 5))
         plt.plot(K_range, inertias, marker='o')
         plt.xlabel('Nombre de clusters k')
@@ -25,8 +24,7 @@ class Clustering:
         plt.show()
         
     def kmeans(self, n_clusters):
-        """Applique KMeans pour effectuer le clustering."""
-        kmeans = KMeans(n_clusters)  # Ajuste le nombre de clusters selon tes besoins
+        kmeans = KMeans(n_clusters) 
         self.data_encoded_new['cluster'] = kmeans.fit_predict(self.data_scaled)
         return self.data_encoded_new
     

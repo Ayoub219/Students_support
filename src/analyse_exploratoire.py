@@ -4,8 +4,15 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 
 class AnalyseEploratoireDonnees:
-    def __init__(self, data):
-        self.data = data
+    def __init__(self, path):
+        self.data = None
+        if path:
+            self.importer_donnees(path)
+            
+    def importer_donnees(self, path):
+        self.data = pd.read_csv(path, delimiter=",", index_col = 0, encoding="ISO-8859-1")
+        return self.data
+    
         
     def afficher_premieres_lignes(self):
         return self.data.head()
