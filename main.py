@@ -45,8 +45,8 @@ def main():
     data_finale = improvability_score.assign_support_level(data_encoded)
     print(data_finale[['cluster', 'Improvability_score']])
     
-    #dashboard = Dashboard(data_finale)
-    #dashboard.run()
+    dashboard = Dashboard(data_finale)
+    dashboard.run()
 
 
 if __name__ == "__main__":
