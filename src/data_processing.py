@@ -15,8 +15,8 @@ class PretraitementsDonnees:
     def scale_data(self, df):
         df_ = df.copy()
         scaler = StandardScaler()
-        columns = df_.columns
-        X = df_[columns]
-        X_scaled = scaler.fit_transform(X)
-        return X_scaled
+        columns = ['age', 'absences', 'FinalGrade']
+        X_scaled = scaler.fit_transform(df_[columns])
+        df_[columns] = X_scaled
+        return df_
     

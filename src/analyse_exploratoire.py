@@ -29,10 +29,16 @@ class AnalyseEploratoireDonnees:
     def statistiques_descriptives(self):
         return self.data.describe()
     
-    def matrice_correlation(self, numeric_columns):
+    def distribution_variable_numerique(self, variable):
+        sns.histplot(self.data[variable], bins=20,kde= True, color='skyblue', edgecolor='black')
+        plt.xlabel('Valeurs')
+        plt.ylabel('Fréquence')
+        plt.title(f"Distribution de {variable}")
+        plt.show()
+        
+    def matrice_correlation(self):
         plt.figure(figsize=(8, 6)) 
-        df_numerical_variables = self.data[numeric_columns]
-        sns.heatmap(df_numerical_variables.corr(), annot=True, cmap='coolwarm', fmt=".2f")
+        sns.heatmap(self.data.corr(), annot=True, cmap='coolwarm', fmt=".2f")
         plt.show()
 
     def modalites_var_categorielles(self, categorical_columns):
