@@ -23,7 +23,8 @@ def main():
     data_encoded = pretraitement.encodage_var_categorielles(categ_col)
 
     # Scaling des données
-    data_scaled = pretraitement.scale_data(data_encoded)
+    num_columns = ['age', 'absences', 'FinalGrade']
+    data_scaled = pretraitement.scale_data(data_encoded, num_columns)
 
     # kprototypes clustering
     Kprototypes_clustering = Clustering(data_encoded, data_scaled)
@@ -38,6 +39,7 @@ def main():
     # Improvability_score
     improvability_score = ImprovabilityScore(resultat)
     data_finale = improvability_score.improvability_score(data_encoded)
+    print(data_finale.head())
 
     corresp = ModaliteeChiffre(data)
     correpondance_category_chiffre = corresp.dict_modalité_chiffre(categ_col)
