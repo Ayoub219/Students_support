@@ -1,3 +1,8 @@
+""""
+Cette classe permet de créer une correspondance entre les anciennes valeurs des variables catégorielles 
+et leurs nouvelles valeurs numériques encodées. Elle est utile pour interpréter les variables catégorielles 
+après encodage.
+"""
 class ModaliteeChiffre:
     def __init__(self, data):
         self.data = data

@@ -37,14 +37,14 @@ def main():
     
     #k_means_resultats
     resultat = Kprototypes_clustering.analyse_Kprototypes(data_with_cluster)
+    print(resultat)
 
     
     #Improvability_score
     improvability_score = ImprovabilityScore(resultat)
-    data_finale = improvability_score.assign_support_level(data_encoded)
+    data_finale = improvability_score.improvability_score(data_encoded)
 
     
-    #dict
     corresp = ModaliteeChiffre(data)
     correpondance_category_chiffre = corresp.dict_modalité_chiffre(categorical_columns)
     print(correpondance_category_chiffre)

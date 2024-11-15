@@ -4,38 +4,49 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+""""
+Étape 5: Création d'un dashboard avec des visuels représentatifs en utilisant Streamlit
+"""
 class Dashboard:
+    #Initialisation du Dashboard en configurant la page Streamlit et en définissant les filtres de la barre latérale
     def __init__(self, data):
         self.data = data
         st.set_page_config(page_title="Dashboard Élèves", layout="wide")  # Configuration du layout
         st.title("Dashboard Pour l'analyse de la situation des élèves")
-        self.create_sidebar_filters() 
+        self.creation_filtres() 
     
-    def create_sidebar_filters(self):
+    # Cette méthode permet de créer les filtres pour permettre à l'utilisateur de sélectionner des sous-ensembles de données.
+    def creation_filtres(self):
         st.sidebar.header("Filtres")
         
         # Filtre selon le sexe
-        sex_options = self.data['sex'].unique()
-        selected_sex = st.sidebar.multiselect("Sélectionner le Sexe", options=sex_options, default=sex_options)
+        sexe_categories = self.data['sex'].unique()
+        sexe_filtre = st.sidebar.multiselect("Sélectionner le Sexe", options=sexe_categories, 
+                                             default=sexe_categories)
         
         # Filtre selon l'adresse
-        address_options = self.data['address'].unique()
-        selected_address = st.sidebar.multiselect("Sélectionner l'Adresse", options=address_options, default=address_options)
+        address_categories = self.data['address'].unique()
+        address_filtre = st.sidebar.multiselect("Sélectionner l'Adresse", options=address_categories,
+                                                  default=address_categories)
 
         # Filtre consommation d'alcool
-        dalc_options = self.data['Dalc'].unique()
-        selected_dalc = st.sidebar.multiselect("Consommation Alcool", options=dalc_options, default=dalc_options)
+        dalc_categories = self.data['Dalc'].unique()
+        dalc_filtre = st.sidebar.multiselect("Consommation Alcool", options=dalc_categories,
+                                               default=dalc_categories)
         
         # Filtre selon l'âge
         age_min, age_max = int(self.data['age'].min()), int(self.data['age'].max())
-        selected_age = st.sidebar.slider("Sélectionner l'Âge", min_value=age_min, max_value=age_max, value=(age_min, age_max))
+        age_filtre = st.sidebar.slider("Sélectionner l'Âge", min_value=age_min, max_value=age_max,
+                                         value=(age_min, age_max))
 
         # Application des filtres
-        self.data = self.data[(self.data['sex'].isin(selected_sex)) & 
-                              (self.data['address'].isin(selected_address)) & 
-                              (self.data['Dalc'].isin(selected_dalc)) & 
-                              (self.data['age'].between(*selected_age))]
+        self.data = self.data[(self.data['sex'].isin(sexe_filtre)) & 
+                              (self.data['address'].isin(address_filtre)) & 
+                              (self.data['Dalc'].isin(dalc_filtre)) & 
+                              (self.data['age'].between(*age_filtre))]
 
+    # Cette méthode permet de dessiner le nuage de points montrant la dispersion des élèves en fonction de leur 
+    # note finale et de leur score d'accompagnement (Improvability Score).
     def complexité_accompagnement_note(self):
         st.subheader("Priorisation des Élèves à Accompagner")
         x = self.data['FinalGrade']
@@ -46,51 +57,51 @@ class Dashboard:
         plt.gca().invert_xaxis()
         plt.xlabel("Note Finale", fontsize=12, weight='bold')
         plt.ylabel("Improvability Score", fontsize=12, weight='bold')
-        plt.title("Priorisation des Élèves", fontsize=14, weight='bold')
+        plt.title("Priorisation des élèves", fontsize=14, weight='bold')
         st.pyplot(plt)
 
+    # Cette méthode trace l'histogramme de la distribution des notes finales des élèves
     def distribution_notes(self):
-        st.subheader("Distribution des Notes Actuelles")
+        st.subheader("Distribution des notes des élèves")
         plt.figure(figsize=(10, 6))
         plt.hist(self.data['FinalGrade'], bins=20, color='skyblue', alpha=0.7)
         plt.xlabel("Note Finale", fontsize=12, weight='bold')
-        plt.ylabel("Nombre d'Élèves", fontsize=12, weight='bold')
-        plt.title("Distribution des Notes", fontsize=14, weight='bold')
+        plt.ylabel("Nombre d'élèves", fontsize=12, weight='bold')
+        plt.title("Distribution des notes", fontsize=14, weight='bold')
         st.pyplot(plt)
-        
+    
+    # Cette méthode trace l'histogramme de la distribution des scores d'accompagnement des élèves      
     def distibution_improvability_score(self):
-        st.subheader("Distribution de l'Improvability Score")
+        st.subheader("Distribution de Improvability Score")
         plt.figure(figsize=(10, 6))
         plt.hist(self.data['Improvability_score'], bins=20, color='green', alpha=0.7)
-        plt.xlabel("Improvability Score", fontsize=12, weight='bold')
+        plt.xlabel("Improvability score", fontsize=12, weight='bold')
         plt.ylabel("Nombre d'Élèves", fontsize=12, weight='bold')
-        plt.title("Distribution du Score d'Amélioration", fontsize=14, weight='bold')
+        plt.title("Distribution du score d'accompagnement", fontsize=14, weight='bold')
         st.pyplot(plt)
         
+    # Cette méthode trace un graphique en barres montrant la moyenne des notes finales par niveau de score d'accompagnement
     def barchart_moyenne_note_improvability_score(self):
         st.subheader("Moyenne des Notes par Improvability Score")
         avg_grades_by_complexity = self.data.groupby('Improvability_score')['FinalGrade'].mean()
         plt.figure(figsize=(10, 6))
         avg_grades_by_complexity.plot(kind='bar', color='lightcoral', edgecolor='black')
-        plt.xlabel("Complexité de l'Accompagnement", fontsize=12, weight='bold')
+        plt.xlabel("Improvability score", fontsize=12, weight='bold')
         plt.ylabel("Note Moyenne", fontsize=12, weight='bold')
-        plt.title("Moyenne des Notes par Improvability Score", fontsize=14, weight='bold')
+        plt.title("Moyenne des notes par score d'accompagnement", fontsize=14, weight='bold')
         st.pyplot(plt)
         
-    def show_improvability_score_distribution_by_categories(self, var):
-        st.subheader(f"Fréquence des Modalités de {var} par Improvability Score")
-
-        # Utilisation de pivot_table pour compter les occurrences de chaque modalité
-        improvability_freq_table = self.data.pivot_table(index='Improvability_score', columns=var, aggfunc='size', fill_value=0)
-
-        # Affichage du tableau dans Streamlit
-        st.dataframe(improvability_freq_table)
+    def pourcentage_modalite_improvability_score(self, var):
+        st.subheader(f"Pourcentage des modalités de {var} par score d'accompagnement")
+        
+        improvability_freq_percentage = pd.crosstab(index=self.data['Improvability_score'], 
+                                                    columns=self.data[var], 
+                                                    normalize='index') * 100
+        st.dataframe(improvability_freq_percentage)
         
     def run(self):
-        # Priorisation et distribution des notes
         self.complexité_accompagnement_note()
         
-        # Disposition des graphiques dans un layout structuré
         with st.container():
             col1, col2 = st.columns(2)
             with col1:
@@ -98,16 +109,13 @@ class Dashboard:
             with col2:
                 self.distibution_improvability_score()
         
-        st.markdown("---")  # Ligne de séparation entre les sections
+        st.markdown("---")  
 
         self.distribution_notes()
         
         st.markdown("---")
         
-        # Sélection de la variable catégorielle
-        category_options = ['Pstatus', 'Medu', 'Fjob', 'traveltime', 'schoolsup', 'higher', 'Fjob', 'health']
+        category_options = ['Dalc', 'Pstatus', 'Medu', 'Fjob', 'traveltime', 'schoolsup', 'higher', 'Fjob', 'health']
         selected_category = st.sidebar.selectbox("Sélectionner une variable pour la visualisation par Improvability Score", options=category_options)
-
-        # Visualisation des fréquences par Improvability Score
-        self.show_improvability_score_distribution_by_categories(selected_category)
+        self.pourcentage_modalite_improvability_score(selected_category)
 
