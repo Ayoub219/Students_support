@@ -35,7 +35,7 @@ def main():
 
     # Demander à l'utilisateur d'entrer le nombre de clusters après l'analyse de la règle du coude
     # n_clusters = int(input("Entrez le nombre de clusters à utiliser : "))
-    n_clusters = 6
+    n_clusters = 4
     data_with_cluster = Kprototypes_clustering.Kprototypes(n_clusters)
 
     # k_prorotypes_resultats
