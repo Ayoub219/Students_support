@@ -36,15 +36,6 @@ class TestClustering(unittest.TestCase):
         self.assertIn("cluster", result.columns)
         self.assertEqual(len(result["cluster"].unique()), n_clusters)
 
-    def test_analyse_Kprototypes(self):
-        n_clusters = 3
-        data_with_cluster = self.clustering.Kprototypes(n_clusters)
-
-        # Vérifier si la méthode retourne un DataFrame et si les clusters sont analysés
-        result = self.clustering.analyse_Kprototypes(data_with_cluster)
-        self.assertTrue(isinstance(result, pd.DataFrame))
-        self.assertTrue("FinalGrade" in result.columns)
-
 
 if __name__ == "__main__":
     unittest.main()

@@ -13,6 +13,7 @@ et leurs distributions.
 class AnalyseEploratoireDonnees:
     def __init__(self, path):
         self.data = None
+        # Si le chemin du fichier est bien fourni, on importe les données à partir du fichier
         if path:
             self.importer_donnees(path)
 

@@ -13,9 +13,7 @@ class Dashboard:
     # Initialisation du Dashboard en configurant la page Streamlit et en définissant les filtres de la barre latérale
     def __init__(self, data):
         self.data = data
-        st.set_page_config(
-            page_title="Dashboard Élèves", layout="wide"
-        )  # Configuration du layout
+        st.set_page_config(page_title="Dashboard Élèves", layout="wide")
         st.title("Dashboard Pour l'analyse de la situation des élèves")
         self.creation_filtres()
 
@@ -62,27 +60,17 @@ class Dashboard:
 
     # Cette méthode permet de dessiner le nuage de points montrant la dispersion des élèves en fonction de leur
     # note finale et de leur score d'accompagnement (Improvability Score).
-    def complexité_accompagnement_note(self):
+    def score_accompagnement_note(self):
         st.subheader("Priorisation des Élèves à Accompagner")
         x = self.data["FinalGrade"]
         y = self.data["Improvability_score"]
         random_offset = np.random.normal(0, 0.2, size=y.shape)
-        plt.figure(figsize=(10, 6))
+        plt.figure(figsize=(8, 4))
         plt.scatter(x, y + random_offset, s=7, color="purple", alpha=0.6)
         plt.gca().invert_xaxis()
         plt.xlabel("Note Finale", fontsize=12, weight="bold")
         plt.ylabel("Improvability Score", fontsize=12, weight="bold")
         plt.title("Priorisation des élèves", fontsize=14, weight="bold")
-        st.pyplot(plt)
-
-    # Cette méthode trace l'histogramme de la distribution des notes finales des élèves
-    def distribution_notes(self):
-        st.subheader("Distribution des notes des élèves")
-        plt.figure(figsize=(10, 6))
-        plt.hist(self.data["FinalGrade"], bins=20, color="skyblue", alpha=0.7)
-        plt.xlabel("Note Finale", fontsize=12, weight="bold")
-        plt.ylabel("Nombre d'élèves", fontsize=12, weight="bold")
-        plt.title("Distribution des notes", fontsize=14, weight="bold")
         st.pyplot(plt)
 
     # Cette méthode trace l'histogramme de la distribution des scores d'accompagnement des élèves
@@ -110,6 +98,7 @@ class Dashboard:
         )
         st.pyplot(plt)
 
+    # Cette méthode renvoie un tableau des pourcentages que présente les variables pour chaque score d'accompagnement
     def pourcentage_modalite_improvability_score(self, var):
         st.subheader(f"Pourcentage des modalités de {var} par score d'accompagnement")
 
@@ -123,8 +112,9 @@ class Dashboard:
         )
         st.dataframe(improvability_freq_percentage)
 
+    # Cette méthode permet d'affichage les analyses de données, les visualisations et les filtres dans une interface Streamlit
     def run(self):
-        self.complexité_accompagnement_note()
+        self.score_accompagnement_note()
 
         with st.container():
             col1, col2 = st.columns(2)
@@ -132,10 +122,6 @@ class Dashboard:
                 self.barchart_moyenne_note_improvability_score()
             with col2:
                 self.distibution_improvability_score()
-
-        st.markdown("---")
-
-        self.distribution_notes()
 
         st.markdown("---")
 

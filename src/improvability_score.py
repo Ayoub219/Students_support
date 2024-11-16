@@ -11,8 +11,10 @@ class ImprovabilityScore:
         self.table = table
 
     def improvability_score(self, data):
-        support_mapping = {
+        # Création d'un dictionnaire où chaque cluster est mappé à un score
+        cluster_score = {
             cluster: score for score, cluster in enumerate(self.table.index, start=1)
         }
-        data["Improvability_score"] = data["cluster"].map(support_mapping)
+        # Associer les scores aux observations en fonction du cliuster
+        data["Improvability_score"] = data["cluster"].map(cluster_score)
         return data

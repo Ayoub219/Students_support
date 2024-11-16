@@ -22,8 +22,10 @@ class TestsStatistiques:
         df_ = df_.drop(columns=["age", "absences", "FinalGrade"])
         list1 = df_.columns
         list2 = df_.columns
+        # Création de paires de variables catégorielles
         combinations = list(product(list1, list2, repeat=1))
         result = []
+        # Effectuer le testd e khi2 pour chaque pair
         for couple in combinations:
             if couple[0] != couple[1]:
                 result.append(
@@ -46,12 +48,17 @@ class TestsStatistiques:
         df_ = self.data.copy()
         df_ = df_.drop(columns=["age", "absences", "FinalGrade"])
         categorical_columns = df_.columns
+
         significant_anova_results = {}
+
+        # Créer une liste de groupes où chaque groupe contient les valeurs de FinalGrade pour une catégorie spécifique
+        # de la variable catégorielle.
         for var in categorical_columns:
             groups = [
                 self.data[self.data[var] == category]["FinalGrade"]
                 for category in self.data[var].unique()
             ]
+            # Décomposer la liste de groupes et effectuer le test d'Anova sur chaque groupe
             anova_stat, p_value = f_oneway(*groups)
             if p_value < 0.05:
                 significant_anova_results[var] = {

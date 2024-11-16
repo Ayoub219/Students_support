@@ -11,15 +11,16 @@ def main():
 
     path = "data/exercice_data.csv"
     exploration_donnees = AnalyseEploratoireDonnees(path)
+
+    # Importer donnees
     data = exploration_donnees.importer_donnees(path)
 
     data.drop(columns=["FirstName", "FamilyName"], inplace=True)
 
-    categ_col = data.select_dtypes(include=["object"]).columns
-
     pretraitement = PretraitementsDonnees(data)
 
     # Encodage des variables catégorielles
+    categ_col = data.select_dtypes(include=["object"]).columns
     data_encoded = pretraitement.encodage_var_categorielles(categ_col)
 
     # Scaling des données
@@ -28,11 +29,16 @@ def main():
 
     # kprototypes clustering
     Kprototypes_clustering = Clustering(data_encoded, data_scaled)
+
+    # Appliquer la regle du coude pour determiner le nombre optimal de cluster
     # Kprototypes_clustering.regle_coude()
 
-    data_with_cluster = Kprototypes_clustering.Kprototypes(6)
+    # Demander à l'utilisateur d'entrer le nombre de clusters après l'analyse de la règle du coude
+    # n_clusters = int(input("Entrez le nombre de clusters à utiliser : "))
+    n_clusters = 6
+    data_with_cluster = Kprototypes_clustering.Kprototypes(n_clusters)
 
-    # k_means_resultats
+    # k_prorotypes_resultats
     resultat = Kprototypes_clustering.analyse_Kprototypes(data_with_cluster)
     print(resultat)
 
