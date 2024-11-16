@@ -36,9 +36,9 @@ class AnalyseEploratoireDonnees:
     # Cette méthode renvoie le pourcentage de valeurs manquantes au niveau de
     # chaque variable(colonne)
     def pourcentage_val_manquantes(self):
-        return (
-            (self.data.isna().sum() / self.data.shape[0]).sort_values(ascending=False)
-        ) * 100
+        pourcentage_nan = (self.data.isna().sum() / self.data.shape[0]) * 100
+        pourcentage_nan = pourcentage_nan.sort_values(ascending=False)
+        return pourcentage_nan
 
     # Cette méthode permet de renvoyer des statistiques des variables
     # numériques (mean - median - min- max ...)

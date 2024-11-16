@@ -23,7 +23,7 @@ def main():
     data_encoded = pretraitement.encodage_var_categorielles(categ_col)
 
     # Scaling des données
-    num_columns = ['age', 'absences', 'FinalGrade']
+    num_columns = ["age", "absences", "FinalGrade"]
     data_scaled = pretraitement.scale_data(data_encoded, num_columns)
 
     # kprototypes clustering
