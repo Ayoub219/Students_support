@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-import seaborn as sns
+from matplotlib.ticker import MultipleLocator
 
 """"
 Étape 5: Création d'un dashboard avec des visuels représentatifs en utilisant Streamlit
@@ -73,6 +73,8 @@ class Dashboard:
         plt.xlabel("Note Finale", fontsize=12, weight="bold")
         plt.ylabel("Improvability Score", fontsize=12, weight="bold")
         plt.title("Priorisation des élèves", fontsize=14, weight="bold")
+
+        plt.gca().yaxis.set_major_locator(MultipleLocator(1))
         st.pyplot(plt)
 
     # Cette méthode trace l'histogramme de la distribution des scores d'accompagnement des élèves
