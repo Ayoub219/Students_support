@@ -10,7 +10,7 @@ import seaborn as sns
 
 
 class Dashboard:
-    # Initialisation du Dashboard en configurant la page Streamlit et en définissant les filtres 
+    # Initialisation du Dashboard en configurant la page Streamlit et en définissant les filtres
     # de la barre latérale
     def __init__(self, data):
         self.data = data
@@ -18,7 +18,7 @@ class Dashboard:
         st.title("Dashboard Pour l'analyse de la situation des élèves")
         self.creation_filtres()
 
-    # Cette méthode permet de créer les filtres pour permettre à l'utilisateur de sélectionner des 
+    # Cette méthode permet de créer les filtres pour permettre à l'utilisateur de sélectionner des
     # sous-ensembles de données
     def creation_filtres(self):
         st.sidebar.header("Filtres")
@@ -60,7 +60,7 @@ class Dashboard:
             & (self.data["age"].between(*age_filtre))
         ]
 
-    # Cette méthode permet de dessiner le nuage de points montrant la dispersion des élèves 
+    # Cette méthode permet de dessiner le nuage de points montrant la dispersion des élèves
     # en fonction de leur note finale et de leur score d'accompagnement (Improvability Score)
     def score_accompagnement_note(self):
         st.subheader("Priorisation des Élèves à Accompagner")
@@ -85,7 +85,7 @@ class Dashboard:
         plt.title("Distribution du score d'accompagnement", fontsize=14, weight="bold")
         st.pyplot(plt)
 
-    # Cette méthode trace un graphique en barres montrant la moyenne des notes finales par niveau 
+    # Cette méthode trace un graphique en barres montrant la moyenne des notes finales par niveau
     # de score d'accompagnement
     def barchart_moyenne_note_improvability_score(self):
         st.subheader("Moyenne des Notes par Improvability Score")
@@ -101,7 +101,7 @@ class Dashboard:
         )
         st.pyplot(plt)
 
-    # Cette méthode renvoie un tableau des pourcentages que présente les variables pour chaque 
+    # Cette méthode renvoie un tableau des pourcentages que présente les variables pour chaque
     # score d'accompagnement
     def pourcentage_modalite_improvability_score(self, var):
         st.subheader(f"Pourcentage des modalités de {var} par score d'accompagnement")
@@ -116,7 +116,7 @@ class Dashboard:
         )
         st.dataframe(improvability_freq_percentage)
 
-    # Cette méthode permet d'affichage les analyses de données, les visualisations et les filtres 
+    # Cette méthode permet d'affichage les analyses de données, les visualisations et les filtres
     # dans une interface Streamlit
     def run(self):
         self.score_accompagnement_note()

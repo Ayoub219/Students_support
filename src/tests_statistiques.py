@@ -15,7 +15,7 @@ class TestsStatistiques:
     def __init__(self, data):
         self.data = data
 
-    # Cette méthode réalise un test du khi2 d'indépendance entre chaque paire de variables 
+    # Cette méthode réalise un test du khi2 d'indépendance entre chaque paire de variables
     # catégoriellespour vérifier s'il existe une association statistiquement significative entre elles
     def test_khi2(self):
         df_ = self.data.copy()
@@ -42,8 +42,8 @@ class TestsStatistiques:
         chi_test_output = pd.DataFrame(result, columns=["var1", "var2", "p_value"])
         return chi_test_output.pivot(index="var1", columns="var2", values="p_value")
 
-    # Cette méthode réalise un test d'Anova d'indépendance entre chaque variable catégorielle 
-    # et la note finale pour vérifier s'il existe une association statistiquement significative 
+    # Cette méthode réalise un test d'Anova d'indépendance entre chaque variable catégorielle
+    # et la note finale pour vérifier s'il existe une association statistiquement significative
     # entre elles
     def test_anova(self):
         df_ = self.data.copy()
@@ -52,7 +52,7 @@ class TestsStatistiques:
 
         significant_anova_results = {}
 
-        # Créer une liste de groupes où chaque groupe contient les valeurs de FinalGrade pour 
+        # Créer une liste de groupes où chaque groupe contient les valeurs de FinalGrade pour
         # une catégorie spécifique de la variable catégorielle
         for var in categorical_columns:
             groups = [

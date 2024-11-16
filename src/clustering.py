@@ -17,7 +17,7 @@ class Clustering:
         self.data_encoded = data_encoded
         self.data_scaled = data_scaled
 
-    # Cette méthode applique la méthode de la "règle du coude" pour déterminer 
+    # Cette méthode applique la méthode de la "règle du coude" pour déterminer
     # le nombre optimal de clusters
     def regle_coude(self):
         numeric_columns = ["age", "absences", "FinalGrade"]
@@ -25,7 +25,7 @@ class Clustering:
             float
         )
 
-        # Liste des indices des colonnes catégorielles dans le DataFrame 
+        # Liste des indices des colonnes catégorielles dans le DataFrame
         # (qui ne sont pas dans 'numeric_columns')
         categorical_columns_index = [
             self.data_scaled.columns.get_loc(col)
@@ -74,7 +74,7 @@ class Clustering:
         )
         return self.data_encoded
 
-    # Cette méthode réalise une analyse de chaque cluster en calculant la moyenne 
+    # Cette méthode réalise une analyse de chaque cluster en calculant la moyenne
     # des variables pour chaque cluster.
     def analyse_Kprototypes(self, data_with_cluster):
         data_kprorotypes_analyse = data_with_cluster.groupby("cluster").mean()
