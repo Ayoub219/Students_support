@@ -4,8 +4,8 @@ import scipy.stats as ss
 from scipy.stats import f_oneway
 
 """
-Cette classe permet de réaliser des tests statistiques: khi2 et Anova pour mieux comprendre les associations
-entre les variables.
+Cette classe permet de réaliser des tests statistiques: khi2 et Anova pour mieux comprendre 
+les associations entre les variables.
 
 NB: Les tests statistique sont réalisés sur les variables encodés
 """
@@ -15,8 +15,8 @@ class TestsStatistiques:
     def __init__(self, data):
         self.data = data
 
-    # Cette méthode réalise un test du khi2 d'indépendance entre chaque paire de variables catégorielles
-    # du DataFrame pour vérifier s'il existe une association statistiquement significative entre elles.
+    # Cette méthode réalise un test du khi2 d'indépendance entre chaque paire de variables 
+    # catégoriellespour vérifier s'il existe une association statistiquement significative entre elles
     def test_khi2(self):
         df_ = self.data.copy()
         df_ = df_.drop(columns=["age", "absences", "FinalGrade"])
@@ -42,8 +42,9 @@ class TestsStatistiques:
         chi_test_output = pd.DataFrame(result, columns=["var1", "var2", "p_value"])
         return chi_test_output.pivot(index="var1", columns="var2", values="p_value")
 
-    # Cette méthode réalise un test d'Anova d'indépendance entre chaque variable catégorielle et la variable de
-    # la note finale pour vérifier s'il existe une association statistiquement significative entre elles.
+    # Cette méthode réalise un test d'Anova d'indépendance entre chaque variable catégorielle 
+    # et la note finale pour vérifier s'il existe une association statistiquement significative 
+    # entre elles
     def test_anova(self):
         df_ = self.data.copy()
         df_ = df_.drop(columns=["age", "absences", "FinalGrade"])
@@ -51,8 +52,8 @@ class TestsStatistiques:
 
         significant_anova_results = {}
 
-        # Créer une liste de groupes où chaque groupe contient les valeurs de FinalGrade pour une catégorie spécifique
-        # de la variable catégorielle.
+        # Créer une liste de groupes où chaque groupe contient les valeurs de FinalGrade pour 
+        # une catégorie spécifique de la variable catégorielle
         for var in categorical_columns:
             groups = [
                 self.data[self.data[var] == category]["FinalGrade"]
