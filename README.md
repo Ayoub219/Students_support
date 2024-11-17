@@ -25,8 +25,8 @@ les activités, les absences, la consommation d’alcool, la note finale et ains
 
 ## Déploiement et maintenance
 - Le code est structuré de manière modulaire, avec des classes distinctes pour chaque tâche (analyse exploratoire, prétraitement, clustering, définition du score, visualisation), ce qui facilite sa compréhension, sa maintenance et son amélioration dans le temps;
-- Le fichier requirements.txt contient toutes les bibliothèques et dépendances nécessaires pour l'éxécution du projet, permettant à un nouveau développeur à prendre la main sur le code et à éxécuter le programme sans bugs;
-- Le code intègre aussi des tests unitaires qui garantissent le bon fonctionnement du code, ainsi que sa fiabilité avant le déploiement.
+- Le fichier requirements.txt contient toutes les bibliothèques et dépendances nécessaires pour l'éxécution du projet, permettant à un nouveau développeur de prendre la main sur le code et d'éxécuter le programme sans bugs;
+- Le code intègre aussi des tests unitaires qui garantissent son bon fonctionnement ainsi que sa fiabilité avant le déploiement.
 
 
 ---
