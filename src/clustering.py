@@ -77,5 +77,9 @@ class Clustering:
     # Cette méthode réalise une analyse de chaque cluster en calculant la moyenne et médiane
     # des variables pour chaque cluster.
     def analyse_Kprototypes(self, data_with_cluster):
-        data_kprorotypes_analyse = data_with_cluster.groupby("cluster").agg(['median', 'mean'])
-        return data_kprorotypes_analyse.sort_values(by=("FinalGrade", "mean"), ascending=False)
+        data_kprorotypes_analyse = data_with_cluster.groupby("cluster").agg(
+            ["median", "mean"]
+        )
+        return data_kprorotypes_analyse.sort_values(
+            by=("FinalGrade", "mean"), ascending=False
+        )

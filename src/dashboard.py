@@ -117,16 +117,16 @@ class Dashboard:
             * 100
         )
         st.dataframe(improvability_freq_percentage)
-        
+
     # Cette méthode renvoie un tableau des moyennes et médianes des variables
     # pour chaque score d'accompagnement
     def mean_median_var(self):
         df_ = self.data.copy()
-        df_ = df_.drop(columns = 'cluster')
+        df_ = df_.drop(columns="cluster")
         st.subheader(f"Moyenne et médianne  des variables par score d'accompagnement")
 
-        moy_med = df_.groupby("Improvability_score").agg(['mean', 'median']).T
-        
+        moy_med = df_.groupby("Improvability_score").agg(["mean", "median"]).T
+
         st.dataframe(moy_med)
 
     # Cette méthode permet d'affichage les analyses de données, les visualisations et les filtres
@@ -158,7 +158,7 @@ class Dashboard:
             "Sélectionner une variable pour la visualisation par Improvability Score",
             options=category_options,
         )
-        
+
         with st.container():
             col1, col2 = st.columns(2)
             with col1:
