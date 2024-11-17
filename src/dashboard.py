@@ -15,7 +15,7 @@ class Dashboard:
     def __init__(self, data):
         self.data = data
         st.set_page_config(page_title="Dashboard Élèves", layout="wide")
-        st.title("Dashboard Pour l'analyse de la situation des élèves")
+        st.title("Dashboard pour l'analyse de la situation des élèves")
         self.creation_filtres()
 
     # Cette méthode permet de créer les filtres pour permettre à l'utilisateur de sélectionner des
@@ -117,6 +117,17 @@ class Dashboard:
             * 100
         )
         st.dataframe(improvability_freq_percentage)
+        
+    # Cette méthode renvoie un tableau des moyennes et médianes des variables
+    # pour chaque score d'accompagnement
+    def mean_median_var(self):
+        df_ = self.data.copy()
+        df_ = df_.drop(columns = 'cluster')
+        st.subheader(f"Moyenne et médianne  des variables par score d'accompagnement")
+
+        moy_med = df_.groupby("Improvability_score").agg(['mean', 'median']).T
+        
+        st.dataframe(moy_med)
 
     # Cette méthode permet d'affichage les analyses de données, les visualisations et les filtres
     # dans une interface Streamlit
@@ -147,4 +158,10 @@ class Dashboard:
             "Sélectionner une variable pour la visualisation par Improvability Score",
             options=category_options,
         )
-        self.pourcentage_modalite_improvability_score(selected_category)
+        
+        with st.container():
+            col1, col2 = st.columns(2)
+            with col1:
+                self.pourcentage_modalite_improvability_score(selected_category)
+            with col2:
+                self.mean_median_var()

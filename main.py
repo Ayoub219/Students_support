@@ -40,18 +40,16 @@ def main():
 
     # k_prorotypes_resultats
     resultat = Kprototypes_clustering.analyse_Kprototypes(data_with_cluster)
-    print(resultat)
 
     # Improvability_score
     improvability_score = ImprovabilityScore(resultat)
     data_finale = improvability_score.improvability_score(data_encoded)
-    print(data_finale.head())
 
     corresp = ModaliteeChiffre(data)
     correpondance_category_chiffre = corresp.dict_modalité_chiffre(categ_col)
     print(correpondance_category_chiffre)
 
-    # Dahboard
+    # Dashboard
     dashboard = Dashboard(data_finale)
     dashboard.run()
 
