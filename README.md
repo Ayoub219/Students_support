@@ -28,7 +28,7 @@ Ce projet consiste en la création d'un **dashboard** permettant d’évaluer le
 - Le code intègre aussi des tests unitaires qui garantissent son bon fonctionnement ainsi que sa fiabilité avant le déploiement.
 
 
-## Instruction pour l'exécution du projet
+## Instructions pour l'exécution du projet
 - Cloner le projet en local à l'aide de la commande : git clone https://github.com/Ayoub219/Students_support.git
 - Créer un environnement virtuel par la commande : python -m venv nom_environnement
 - Activer l'environnement virtuel: venv\Scripts\activate
