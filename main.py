@@ -28,7 +28,7 @@ def main():
     # kprototypes clustering
     Kprototypes_clustering = Clustering(data_encoded, data_scaled)
     # Appliquer la regle du coude pour determiner le nombre optimal de cluster
-    Kprototypes_clustering.regle_coude()
+    #Kprototypes_clustering.regle_coude()
     # Demander à l'utilisateur d'entrer le nombre de clusters après l'analyse de la règle du coude
     # n_clusters = int(input("Entrez le nombre de clusters à utiliser : "))
     n_clusters = 4
