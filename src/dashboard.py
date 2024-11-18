@@ -155,7 +155,7 @@ class Dashboard:
             "health",
         ]
         selected_category = st.sidebar.selectbox(
-            "Sélectionner une variable pour la visualisation par Improvability Score",
+            "Sélectionner une variable",
             options=category_options,
         )
 
