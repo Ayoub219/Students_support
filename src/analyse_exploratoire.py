@@ -59,9 +59,9 @@ class AnalyseEploratoireDonnees:
 
     # Cette méthode permet de tracer un heatmap pour visualiser les
     # corrélations entre les variables
-    def matrice_correlation(self):
-        plt.figure(figsize=(8, 6))
-        sns.heatmap(self.data.corr(), annot=True, cmap="coolwarm", fmt=".2f")
+    def matrice_correlation(self, data):
+        plt.figure(figsize=(18, 16))
+        sns.heatmap(data.corr(), annot=True, cmap="coolwarm", fmt=".2f")
         plt.show()
 
     # Cette méthode renvoie les modalités qui constituent les variables
